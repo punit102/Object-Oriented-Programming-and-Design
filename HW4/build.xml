@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="CS680 - HW4">
+	<property environment="env" />
+	<property name="junit.output.dir" value="junit" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.8" />
+	<property name="source" value="1.8" />
+	<property name="junit_cs680_path" value="${env.JUNIT_CS680}" />
+	<property name="hamcrest_cs680_path" value="${env.HAMCREST_CORE_CS680}" />
+	<path id="JUnit 4.libraryclasspath">
+		<pathelement location="${junit_cs680_path}" />
+		<pathelement location="${hamcrest_cs680_path}" />
+	</path>
+	<path id="HW4.classpath">
+		<pathelement location="bin" />
+		<pathelement location="test/bin" />
+		<path refid="JUnit 4.libraryclasspath" />
+	</path>
+	<target name="init" depends="clean">
+		<mkdir dir="bin" />
+		<mkdir dir="test/bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="test/src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean">
+		<echo>This is CS680 - HW4 Homework</echo>
+		<echo>Name: Punit Rajendra Patel</echo>
+		<echo>Student ID: 01603970</echo>
+		<delete dir="bin" />
+		<delete dir="test/bin" />
+	</target>
+
+	<target depends="build-subprojects,build-project,junit" name="build" />
+	<target name="build-subprojects" />
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+
+		<mkdir dir="bin" />
+		<mkdir dir="test/bin" />
+		<echo>Compiling all the ".java" files which inside src folder of HW4 - CS680 Homework</echo>
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src" />
+			<classpath refid="HW4.classpath" />
+		</javac>
+	<echo>Compiling all the ".java" files which inside test/src folder of HW4 - CS680 Homework</echo>
+		<javac debug="true" debuglevel="${debuglevel}" destdir="test/bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="test/src" />
+			<classpath refid="HW4.classpath" />
+		</javac>
+
+	</target>
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target name="junit">
+		<junit fork="yes" printsummary="true" haltonfailure="off">
+			<formatter type="plain" usefile="false" />
+			<jvmarg line="-ea" />
+			<classpath refid="HW4.classpath" />
+
+			<batchtest>
+				<fileset dir="test/src" includes="**/*Test.java">
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+</project>
